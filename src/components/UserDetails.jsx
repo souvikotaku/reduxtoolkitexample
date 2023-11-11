@@ -1,21 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DeleteAllUser } from "./DeleteAllUser";
 import styled from "styled-components";
+import { fakeUserData } from "../api";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, removeUser, deleteUser } from "../store/slices/UserSlice";
 
 const UserDetails = () => {
+  const dispatch = useDispatch();
+  const getuserdetails = useSelector((state) => {
+    return state.users;
+  });
+
+  console.log("getuserdetails", getuserdetails);
+
+  const addNewUser = (payload) => {
+    console.log(payload);
+    dispatch(addUser(payload));
+  };
+
+  const deleteoneUser = (id) => {
+    console.log(id);
+    dispatch(removeUser(id));
+  };
+
+  const deleteAllUser = () => {
+    console.log();
+    dispatch(deleteUser());
+  };
+
   return (
     <Wrapper>
       <div className="content">
         <div className="admin-table">
           <div className="admin-subtitle">List of User Details</div>
-          <button className="btn add-btn">Add New Users</button>
+          <button
+            className="btn add-btn"
+            onClick={() => addNewUser(fakeUserData())}
+          >
+            Add New Users
+          </button>
         </div>
         <ul>
-          {/* <li>Hi</li>
-          <li>Hii</li> */}
+          {getuserdetails &&
+            getuserdetails?.map((item, index) => (
+              <li key={index}>
+                {item}
+                <button onClick={() => deleteoneUser(index)}>delete</button>
+              </li>
+            ))}
         </ul>
         <hr />
-        <DeleteAllUser />
+        <button onClick={deleteAllUser}>delete all user</button>
+        {/* <DeleteAllUser /> */}
       </div>
     </Wrapper>
   );
