@@ -4,6 +4,11 @@ import styled from "styled-components";
 import { fakeUserData } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser, deleteUser } from "../store/slices/UserSlice";
+import {
+  addUserLocal,
+  removeUserLocal,
+  deleteUserLocal,
+} from "../store/slices/localSlice";
 
 const UserDetails = () => {
   const dispatch = useDispatch();
@@ -11,21 +16,29 @@ const UserDetails = () => {
     return state.users;
   });
 
+  const getuserdetailslocal = useSelector((state) => {
+    return state.userslocal;
+  });
+
   console.log("getuserdetails", getuserdetails);
+  console.log("getuserdetailslocal", getuserdetailslocal);
 
   const addNewUser = (payload) => {
     console.log(payload);
     dispatch(addUser(payload));
+    dispatch(addUserLocal(payload));
   };
 
   const deleteoneUser = (id) => {
     console.log(id);
     dispatch(removeUser(id));
+    dispatch(removeUserLocal(id));
   };
 
   const deleteAllUser = () => {
     console.log();
     dispatch(deleteUser());
+    dispatch(deleteUserLocal());
   };
 
   return (
@@ -41,8 +54,8 @@ const UserDetails = () => {
           </button>
         </div>
         <ul>
-          {getuserdetails &&
-            getuserdetails?.map((item, index) => (
+          {getuserdetailslocal &&
+            getuserdetailslocal?.map((item, index) => (
               <li key={index}>
                 {item}
                 <button onClick={() => deleteoneUser(index)}>delete</button>
