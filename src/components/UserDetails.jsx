@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { fakeUserData } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser, deleteUser } from "../store/slices/UserSlice";
+import { fetchtodos } from "../store/slices/apislice";
 import {
   addUserLocal,
   removeUserLocal,
@@ -18,6 +19,10 @@ const UserDetails = () => {
 
   const getuserdetailslocal = useSelector((state) => {
     return state.userslocal;
+  });
+
+  const getapidata = useSelector((state) => {
+    return state.apiSlice;
   });
 
   console.log("getuserdetails", getuserdetails);
@@ -36,9 +41,13 @@ const UserDetails = () => {
   };
 
   const deleteAllUser = () => {
-    console.log();
     dispatch(deleteUser());
     dispatch(deleteUserLocal());
+  };
+
+  const callApi = () => {
+    dispatch(fetchtodos());
+    console.log("getapidata", getapidata);
   };
 
   return (
@@ -59,6 +68,7 @@ const UserDetails = () => {
               <li key={index}>
                 {item}
                 <button onClick={() => deleteoneUser(index)}>delete</button>
+                <button onClick={() => callApi()}>call api</button>
               </li>
             ))}
         </ul>
