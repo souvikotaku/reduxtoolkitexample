@@ -63,8 +63,8 @@ const UserDetails = () => {
           </button>
         </div>
         <ul>
-          {getuserdetailslocal &&
-            getuserdetailslocal?.map((item, index) => (
+          {getuserdetails &&
+            getuserdetails?.map((item, index) => (
               <li key={index}>
                 {item}
                 <button onClick={() => deleteoneUser(index)}>delete</button>
