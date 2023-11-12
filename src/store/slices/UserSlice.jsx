@@ -6,15 +6,11 @@ const userSlice = createSlice({
   reducers: {
     addUser: (state, action) => {
       state.push(action.payload);
-      // localStorage.setItem("user", JSON.stringify(state));
     },
     removeUser: (state, action) => {
       state.splice(action.payload, 1);
-      // localStorage.setItem("user", JSON.stringify(state));
     },
     deleteUser: (state, action) => {
-      // localStorage.removeItem("user");
-
       return [];
     },
   },
